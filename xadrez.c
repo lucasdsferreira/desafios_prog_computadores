@@ -22,6 +22,16 @@ int main() {
         printf("Esquerda\n");
         k++;
     } while (k <= 8);
-    
+
+    printf("--CAVALO--\n");
+    int passos = 0;
+    for (int l = 0; l < 2; l++) {
+        printf("Baixo\n");
+        while (passos < 1 && l == 1) {
+            printf("Esquerda\n");
+            passos++;
+        }
+    }
+
     return 0;
 }
