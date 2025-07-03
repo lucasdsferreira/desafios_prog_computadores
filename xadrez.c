@@ -1,35 +1,56 @@
 #include <stdio.h>
 #include <string.h>
 
+void moverTorre(int casas) {
+    if (casas == 0) return;
+    printf("Direita\n");
+    moverTorre(casas - 1);
+}
+
+void moverRainha(int casas) {
+    if (casas == 0) return;
+    printf("Esquerda\n");
+    moverRainha(casas - 1);
+}
+
+void moverBispoRecursivo(int casas) {
+    if (casas == 0) return;
+    printf("Cima Direita\n");
+    moverBispoRecursivo(casas - 1);
+}
+
+void moverBispoComLoop(int linhas, int colunas) {
+    for (int i = 0; i < linhas; i++) {
+        for (int j = 0; j < colunas; j++) {
+            if (i == j) {
+                printf("Cima Direita\n");
+            }
+        }
+    }
+}
+
 int main() {
-    int i;
-
     printf("--TORRE--\n");
-    for (i = 1; i <= 5; i++) {
-        printf("Direita\n");
-    }
+    moverTorre(5);
 
-    printf("--RAINHA--\n");
-    int j = 1;
-    while (j <= 5) {
-        printf("Cima Direita\n");
-        j++;
-    }
+    printf("\n--RAINHA--\n");
+    moverRainha(8);
 
-    printf("--BISPO--\n");
-    int k = 1;
-    do {
-        printf("Esquerda\n");
-        k++;
-    } while (k <= 8);
+    printf("\n--BISPO--\n");
+    moverBispoRecursivo(5);
 
-    printf("--CAVALO--\n");
-    int passos = 0;
-    for (int l = 0; l < 2; l++) {
-        printf("Baixo\n");
-        while (passos < 1 && l == 1) {
-            printf("Esquerda\n");
-            passos++;
+    printf("\n--BISPO--\n");
+    moverBispoComLoop(5, 5);
+
+    printf("\n--CAVALO--\n");
+    for (int i = 2; i >= 1; i--) {
+        for (int j = 0; j < 2; j++) {
+            if (i == 1 && j == 1) {
+                printf("Direita\n");
+                break;
+            }
+            if (j > 0) continue;
+            printf("Cima\n");
         }
     }
 
