@@ -1,8 +1,9 @@
 #include <stdio.h>
+#include <stdlib.h>
 
 int main() {
-    int tabuleiro[10][10];
     int i, j;
+    int tabuleiro[10][10];
 
     for (i = 0; i < 10; i++) {
         for (j = 0; j < 10; j++) {
@@ -10,32 +11,92 @@ int main() {
         }
     }
 
-    int tamanho_navio = 3;
+    tabuleiro[2][1] = 3;
+    tabuleiro[2][2] = 3;
+    tabuleiro[2][3] = 3;
 
-    int linha_h1 = 1, coluna_h1 = 2;
-    for (i = 0; i < tamanho_navio; i++) {
-        tabuleiro[linha_h1][coluna_h1 + i] = 3;
+    tabuleiro[5][6] = 3;
+    tabuleiro[6][6] = 3;
+    tabuleiro[7][6] = 3;
+
+    tabuleiro[0][0] = 3;
+    tabuleiro[1][1] = 3;
+    tabuleiro[2][2] = 3;
+
+    tabuleiro[0][9] = 3;
+    tabuleiro[1][8] = 3;
+    tabuleiro[2][7] = 3;
+
+    int cone[5][5];
+    for (i = 0; i < 5; i++) {
+        for (j = 0; j < 5; j++) {
+            if (j >= 2 - i && j <= 2 + i) {
+                cone[i][j] = 1;
+            } else {
+                cone[i][j] = 0;
+            }
+        }
     }
 
-    int linha_v1 = 5, coluna_v1 = 7;
-    for (i = 0; i < tamanho_navio; i++) {
-        tabuleiro[linha_v1 + i][coluna_v1] = 3;
+    int cruz[5][5];
+    for (i = 0; i < 5; i++) {
+        for (j = 0; j < 5; j++) {
+            if (i == 2 || j == 2) {
+                cruz[i][j] = 1;
+            } else {
+                cruz[i][j] = 0;
+            }
+        }
     }
 
-    int linha_diag1 = 0, coluna_diag1 = 0;
-    for (i = 0; i < tamanho_navio; i++) {
-        tabuleiro[linha_diag1 + i][coluna_diag1 + i] = 3;
+    int octaedro[5][5];
+    for (i = 0; i < 5; i++) {
+        for (j = 0; j < 5; j++) {
+            if (abs(i - 2) + abs(j - 2) <= 2) {
+                octaedro[i][j] = 1;
+            } else {
+                octaedro[i][j] = 0;
+            }
+        }
     }
 
-    int linha_diag2 = 0, coluna_diag2 = 9;
-    for (i = 0; i < tamanho_navio; i++) {
-        tabuleiro[linha_diag2 + i][coluna_diag2 - i] = 3;
+    int origemLinha = 4;
+    int origemColuna = 4;
+
+    for (i = 0; i < 5; i++) {
+        for (j = 0; j < 5; j++) {
+            int lin = origemLinha + i;
+            int col = origemColuna - 2 + j;
+            if (lin >= 0 && lin < 10 && col >= 0 && col < 10 && cone[i][j] == 1 && tabuleiro[lin][col] == 0) {
+                tabuleiro[lin][col] = 5;
+            }
+        }
     }
 
-    printf("=== TABULEIRO ===\n\n");
+    for (i = 0; i < 5; i++) {
+        for (j = 0; j < 5; j++) {
+            int lin = origemLinha - 2 + i;
+            int col = origemColuna - 2 + j;
+            if (lin >= 0 && lin < 10 && col >= 0 && col < 10 && cruz[i][j] == 1 && tabuleiro[lin][col] == 0) {
+                tabuleiro[lin][col] = 5;
+            }
+        }
+    }
+
+    for (i = 0; i < 5; i++) {
+        for (j = 0; j < 5; j++) {
+            int lin = origemLinha - 2 + i;
+            int col = origemColuna - 2 + j;
+            if (lin >= 0 && lin < 10 && col >= 0 && col < 10 && octaedro[i][j] == 1 && tabuleiro[lin][col] == 0) {
+                tabuleiro[lin][col] = 5;
+            }
+        }
+    }
+
+    printf("\n=== TABULEIRO ===\n\n");
     for (i = 0; i < 10; i++) {
         for (j = 0; j < 10; j++) {
-            printf("%d ", tabuleiro[i][j]);
+            printf("%2d ", tabuleiro[i][j]);
         }
         printf("\n");
     }
