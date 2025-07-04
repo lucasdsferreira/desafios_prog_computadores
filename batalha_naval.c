@@ -10,21 +10,26 @@ int main() {
         }
     }
 
-    int navio_horizontal[3] = {3, 3, 3};
-    int navio_vertical[3] = {3, 3, 3};
+    int tamanho_navio = 3;
 
-    int linha_horizontal = 2;
-    int coluna_horizontal = 1;
-
-    int linha_vertical = 5;
-    int coluna_vertical = 7;
-
-    for (i = 0; i < 3; i++) {
-        tabuleiro[linha_horizontal][coluna_horizontal + i] = navio_horizontal[i];
+    int linha_h1 = 1, coluna_h1 = 2;
+    for (i = 0; i < tamanho_navio; i++) {
+        tabuleiro[linha_h1][coluna_h1 + i] = 3;
     }
 
-    for (i = 0; i < 3; i++) {
-        tabuleiro[linha_vertical + i][coluna_vertical] = navio_vertical[i];
+    int linha_v1 = 5, coluna_v1 = 7;
+    for (i = 0; i < tamanho_navio; i++) {
+        tabuleiro[linha_v1 + i][coluna_v1] = 3;
+    }
+
+    int linha_diag1 = 0, coluna_diag1 = 0;
+    for (i = 0; i < tamanho_navio; i++) {
+        tabuleiro[linha_diag1 + i][coluna_diag1 + i] = 3;
+    }
+
+    int linha_diag2 = 0, coluna_diag2 = 9;
+    for (i = 0; i < tamanho_navio; i++) {
+        tabuleiro[linha_diag2 + i][coluna_diag2 - i] = 3;
     }
 
     printf("=== TABULEIRO ===\n\n");
